@@ -10,7 +10,7 @@ export const Stats = () => {
   const [animatedValues, setAnimatedValues] = useState(stats.map(() => 0));
 
   useEffect(() => {
-    const duration = 500; // Animation duration in milliseconds (2 seconds)
+    const duration = 500; // Animation duration in milliseconds
     const steps = 10; // Number of animation steps
     const incrementTime = duration / steps;
 
@@ -24,13 +24,12 @@ export const Stats = () => {
           const newValues = [...prev];
           newValues[index] = currentValue;
           return newValues.map((val, i) =>
-            i === index ? parseFloat(Math.min(val, stat.target).toFixed(stat.target % 1 === 0 ? 0 : 1)) : prev[i]
+            i === index ? parseFloat(Math.min(val, stats[i].target).toFixed(stats[i].target % 1 === 0 ? 0 : 1)) : prev[i]
           );
         });
       }, incrementTime);
     });
 
-    // Clear intervals after animation completes
     const timeout = setTimeout(() => {
       intervals.forEach(clearInterval);
       setAnimatedValues(stats.map((stat) => parseFloat(stat.target.toFixed(stat.target % 1 === 0 ? 0 : 1))));
@@ -43,14 +42,14 @@ export const Stats = () => {
   }, []);
 
   return (
-    <section className="bg-white py-12 px-4 md:px-48 ">
-      <h2 className="text-2xl md:text-4xl font-semibold mb-12">
+    <section className="bg-white py-12 px-4 md:px-48">
+      <h2 className="text-2xl md:text-4xl font-semibold mb-12 text-center md:text-left">
         Your premier platform for crypto
       </h2>
-      <div className="flex justify-between md:flex gap-8">
+      <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
         {stats.map((stat, index) => (
-          <div key={index} className="flex flex-col">
-            <h3 className="text-4xl md:text-5xl ">
+          <div key={index} className="flex flex-col items-center md:items-start text-center md:text-left mb-6 md:mb-0">
+            <h3 className="text-4xl md:text-5xl">
               {stat.unit === '₹ Cr+' ? '₹' : ''}
               {animatedValues[index]}
               {stat.unit}
@@ -62,3 +61,4 @@ export const Stats = () => {
     </section>
   );
 };
+
