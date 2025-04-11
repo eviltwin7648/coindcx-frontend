@@ -24,7 +24,7 @@ export const Stats = () => {
           const newValues = [...prev];
           newValues[index] = currentValue;
           return newValues.map((val, i) =>
-            i === index ? Math.min(val, stat.target).toFixed(stat.target % 1 === 0 ? 0 : 1) : prev[i]
+            i === index ? parseFloat(Math.min(val, stat.target).toFixed(stat.target % 1 === 0 ? 0 : 1)) : prev[i]
           );
         });
       }, incrementTime);
@@ -33,7 +33,7 @@ export const Stats = () => {
     // Clear intervals after animation completes
     const timeout = setTimeout(() => {
       intervals.forEach(clearInterval);
-      setAnimatedValues(stats.map((stat) => stat.target.toFixed(stat.target % 1 === 0 ? 0 : 1)));
+      setAnimatedValues(stats.map((stat) => parseFloat(stat.target.toFixed(stat.target % 1 === 0 ? 0 : 1))));
     }, duration);
 
     return () => {

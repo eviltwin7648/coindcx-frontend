@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Accordion, AccordionItem } from "@/components/ui/accordion";
+
 import { Header } from "./components/Header";
 import Navbar from "./components/Navbar";
 import { Hero } from "./components/Hero";
